@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="kmr" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏡 خانوبەرێن چیایێ شاریا | مۆلکێ لۆکس</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* --- MODERN DESIGN SYSTEM --- */
+            * {
+        font-family: 'vager';
+    }
+
+    @font-face {
+        font-family: 'vager';
+        src: url('rabar.woff');
+    }
+        :root {
+            --primary: #1a2a3a;
+            --secondary: #e6b800;
+            --accent: #2e4a68;
+            --light: #ffffff;
+            --bg: #f7f9fb;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --gray-light: #eef2f6;
+            --gray-medium: #a0aec0;
+            --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-deep: 0 10px 25px rgba(0,0,0,0.15);
+            --shadow-soft: 0 2px 10px rgba(0,0,0,0.05);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--primary); 
+            overflow-x: hidden; 
+            line-height: 1.6;
+            font-size: 16px; /* Standard base font size */
+        }
+        
+        /* Animations */
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes pulse { 
+            0% { box-shadow: 0 0 0 0 rgba(230, 184, 0, 0.4); } 
+            70% { box-shadow: 0 0 0 10px rgba(230, 184, 0, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(230, 184, 0, 0); } 
+        }
+        @keyframes slideIn { 
+            from { transform: translateX(20px); opacity: 0; } 
+            to { transform: translateX(0); opacity: 1; } 
+        }
+
+        /* Navbar */
+        nav {
+            background: var(--primary);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: var(--shadow-soft);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { 
+            font-size: 1.5rem; /* Standard size */
+            font-weight: 800; 
+            color: var(--secondary); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .logo i { font-size: 1.3rem; }
+        
+        .login-btn, .logout-btn {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .login-btn:hover { 
+            background: var(--secondary); 
+            color: var(--primary); 
+            transform: translateY(-2px);
+        }
+        .logout-btn { 
+            border-color: var(--danger); 
+            color: var(--danger); 
+        }
+        .logout-btn:hover { 
+            background: var(--danger); 
+            color: var(--light); 
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+    .hero {
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('vage.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    z-index: -1; /* keep text above blur */
+}
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+
+        .hero h1 { 
+            font-size: 2.5rem; /* Standard size */
+            margin-bottom: 1rem; 
+            font-weight: 900;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
+            animation: fadeIn 1s forwards;
+            line-height: 1.2;
+        }
+        .hero span { color: var(--secondary); }
+        .hero p { 
+            font-size: 1.1rem; /* Standard size */
+            opacity: 0.9; 
+            font-weight: 300;
+            animation: fadeIn 1.5s forwards;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.85); 
+            z-index: 2000;
+            justify-content: center; 
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: var(--light); 
+            padding: 2rem; 
+            border-radius: var(--border-radius);
+            text-align: center; 
+            width: 90%; 
+            max-width: 450px;
+            border-top: 8px solid var(--secondary);
+            box-shadow: var(--shadow-deep);
+            animation: fadeIn 0.4s ease;
+            position: relative;
+        }
+        .modal-content h3 { 
+            font-size: 1.5rem; /* Standard size */
+            color: var(--primary); 
+            margin-bottom: 0.5rem;
+        }
+        .modal-content input {
+            width: 100%; 
+            padding: 0.8rem; 
+            margin: 1rem 0;
+            border: 1px solid var(--gray-light); 
+            border-radius: 8px;
+            text-align: right; 
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--gray-light);
+        }
+        .modal-content input:focus { 
+            border-color: var(--secondary); 
+            background: var(--light);
+            box-shadow: 0 0 0 3px rgba(230, 184, 0, 0.2);
+        }
+        .modal-close-btn { 
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none; 
+            border: none; 
+            color: var(--gray-medium); 
+            cursor: pointer; 
+            font-size: 1.2rem; 
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .modal-close-btn:hover { 
+            background: var(--gray-light);
+            color: var(--primary); 
+        }
+        
+        /* Admin Panel */
+        #adminPanel {
+            display: none;
+            background: white; 
+            margin: -50px 5% 30px 5%; 
+            position: relative;
+            padding: 2rem; 
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-deep);
+            z-index: 100;
+            animation: fadeIn 0.8s forwards;
+        }
+        #adminPanel h2 { 
+            font-weight: 700; 
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+            font-size: 1.5rem; /* Standard size */
+        }
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        input[type="text"], input[type="number"], input[type="url"] { 
+            width: 100%; 
+            padding: 0.8rem; 
+            border: 1px solid var(--gray-light); 
+            border-radius: 8px; 
+            outline: none; 
+            font-size: 1rem; 
+            transition: var(--transition);
+            background: var(--gray-light);
+        }
+        input:focus { 
+            border-color: var(--accent); 
+            background: var(--light);
+            box-shadow: 0 0 0 3px rgba(46, 74, 104, 0.1);
+        }
+        
+        /* Media Upload */
+        .media-upload {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--gray-medium);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--gray-light);
+        }
+        
+        .upload-area:hover {
+            border-color: var(--secondary);
+            background: rgba(230, 184, 0, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 2rem;
+            color: var(--gray-medium);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-area p {
+            color: var(--gray-medium);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .upload-btn:hover {
+            background: var(--primary);
+        }
+        
+        .image-preview {
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .image-url-input {
+            grid-column: span 2;
+        }
+        .image-url-input input {
+            text-align: right;
+        }
+
+        .btn-primary {
+            background: var(--secondary); 
+            color: var(--primary); 
+            width: 100%; 
+            padding: 1rem;
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 1.1rem;
+            transition: var(--transition); 
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-primary:hover { 
+            background: #ffd700; 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(230, 184, 0, 0.4);
+        }
+
+        /* Property Grid */
+        .container { 
+            padding: 3rem 5%; 
+        }
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 3rem; 
+            color: var(--primary); 
+            font-size: 2rem; /* Standard size */
+            font-weight: 900;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        .grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white; 
+            border-radius: var(--border-radius); 
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition); 
+            animation: fadeIn 0.6s ease forwards;
+            position: relative;
+            border: 1px solid var(--gray-light);
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-deep); 
+        }
+
+        .card img { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            transition: transform 0.5s; 
+        }
+        .card:hover img { 
+            transform: scale(1.05); 
+        }
+        
+        .card-details { 
+            padding: 1.5rem; 
+        }
+        .price { 
+            color: var(--secondary); 
+            font-size: 1.5rem; /* Standard size */
+            font-weight: 800; 
+            display: block; 
+            margin-bottom: 0.5rem; 
+        }
+        .card-title { 
+            font-size: 1.2rem; /* Standard size */
+            margin-bottom: 0.8rem; 
+            font-weight: 700; 
+            color: var(--accent); 
+        }
+        .location { 
+            color: var(--gray-medium); 
+            font-size: 0.9rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-bottom: 0.8rem; 
+        }
+        .location i { 
+            color: var(--secondary); 
+        }
+        
+        .features {
+            display: flex; 
+            justify-content: space-between; 
+            padding-top: 0.8rem; 
+            border-top: 1px solid var(--gray-light); 
+            font-size: 0.9rem; 
+            color: #444;
+            font-weight: 500;
+        }
+        .features span { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+        }
+        .features span i { 
+            color: var(--primary); 
+        }
+
+        /* Sold Ribbon */
+        .sold-ribbon {
+            position: absolute; 
+            top: 15px; 
+            right: -50px;
+            background: var(--danger); 
+            color: var(--light);
+            padding: 5px 60px; 
+            transform: rotate(45deg);
+            font-weight: bold; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 10;
+            font-size: 0.8rem;
+        }
+
+        /* Admin Actions */
+        .admin-actions {
+            padding: 1rem; 
+            background: var(--gray-light); 
+            border-top: 1px solid var(--gray-light);
+            display: flex; 
+            gap: 1rem; 
+            justify-content: space-around;
+        }
+        .btn-action { 
+            padding: 0.6rem 1rem; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            color: white; 
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        .btn-action:hover { 
+            transform: translateY(-2px); 
+            opacity: 0.9; 
+        }
+        .delete { 
+            background: var(--danger); 
+        }
+        .sold { 
+            background: var(--warning); 
+        }
+        .available { 
+            background: var(--success); 
+        }
+        
+        /* Footer Styling */
+        .footer {
+            background-color: var(--primary);
+            color: var(--light);
+            padding-top: 3rem;
+            font-size: 1rem;
+            direction: rtl;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 0 5%;
+            margin-bottom: 2rem;
+            gap: 2rem;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 2rem;
+        }
+
+        .footer-col {
+            flex-basis: 300px;
+            max-width: 300px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem; /* Standard size */
+            color: var(--secondary);
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-col p {
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        /* Links */
+        .footer-col.links ul {
+            list-style: none;
+        }
+        .footer-col.links a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .footer-col.links a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        .footer-col.links a i {
+            font-size: 0.8rem;
+        }
+
+        /* Contact */
+        .footer-col.contact div {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .footer-col.contact i {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        /* Social Icons */
+        .social-links {
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .social-links a {
+            color: var(--primary);
+            background: var(--light);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Bottom Copyright */
+        .footer-bottom {
+            text-align: center;
+            padding: 1.2rem 0;
+            background-color: var(--accent);
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-deep);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+            font-size: 0.9rem;
+        }
+        .toast.success {
+            background: var(--success);
+        }
+        .toast.error {
+            background: var(--danger);
+        }
+        .toast.warning {
+            background: var(--warning);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-col {
+                max-width: 100%;
+                flex-basis: auto;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .footer-col.links a {
+                justify-content: center;
+            }
+            .hero {
+                height: 50vh;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.6rem; }
+            .hero p { font-size: 0.9rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .media-upload, .image-url-input { grid-column: span 1; }
+            .admin-actions {
+                flex-direction: column;
+            }
+            .card img {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class=""></i>  <img src="logo.png" alt="" width="90">نڤیسینگەها چیایێ شاریا</div>
+        <div>
+            <button class="login-btn" id="loginBtn" onclick="openModal()"><i class="fas fa-user-lock"></i> چوونا ئەدمینی</button>
+            <button class="logout-btn" id="logoutBtn" onclick="logout()" style="display: none;"><i class="fas fa-sign-out-alt"></i> دەرکەفتن</button>
+        </div>
+    </nav>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <h3>تێچوونا ئەدمینی</h3>
+            <p style="color: #555; margin-bottom: 20px;">هیڤیە پاسوۆردی بنڤیسە</p>
+            <input type="password" id="passwordInput" placeholder="پاسوۆرد..." onkeyup="if(event.key === 'Enter') checkPassword()">
+            <button class="btn-primary" onclick="checkPassword()"><i class="fas fa-sign-in-alt"></i> تێچوون</button>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>هەلبژاردنێن <span>لۆکس</span> ل چیایێ شاریا</h1>
+        <p>گەشترین دیزاین و گونجاوترین بها</p>
+    </section>
+
+    <div id="adminPanel">
+        <h2><i class="fas fa-plus-circle"></i> زێدەکرنا مولکێ نوو</h2>
+        
+        <div class="form-grid">
+            <input type="text" id="title" placeholder="ناڤێ مولکی (مب: خانی ل سەنتەری)">
+            <input type="text" id="price" placeholder="بها (مب: $120,000)">
+        </div>
+        
+        <div class="form-grid media-upload">
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>راکێشانا وێنەیێ مولکی یان کلیک بکە بۆ هەلبژاردن</p>
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-folder-open"></i> هەلبژاردنا فایل
+                </button>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+            </div>
+            <div class="image-preview" id="imagePreview">
+                <p>وێنەی هەلبژاردراو:</p>
+                <img id="previewImg" src="" alt="پێشبینینی وێنە">
+            </div>
+        </div>
+
+        <div class="form-grid image-url-input">
+            <p style="text-align: center; grid-column: span 2; color: var(--gray-medium); margin: 0.5rem 0;">یان</p>
+            <input type="url" id="imgUrl" placeholder="لینکێ وێنەیێ مولکی (URL)" dir="ltr">
+        </div>
+
+        <div class="form-grid">
+            <input type="text" id="loc" placeholder="ناڤونیشان (جهـ)" value="چیایێ شاریا">
+            <input type="number" id="rooms" placeholder="ژمارا ژوورا (مب: 4)">
+        </div>
+        <div class="form-grid">
+            <input type="number" id="area" placeholder="روبەر (m²)">
+            <input type="text" id="baths" placeholder="ژمارا حەماما (اختیاری)">
+        </div>
+        
+        <button class="btn-primary" onclick="addProperty()"><i class="fas fa-upload"></i> بڵاڤکرن</button>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">مولکێن بەردەست</h2>
+        <div class="grid" id="grid">
+            </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col about">
+                <h3><i class="fas fa-city"></i> نڤیسینگەها چیایێ شاریا</h3>
+                <p>ئەم باشترین هەلبژاردن و دیزاینێن لۆکس ب بهایێن گونجاو پێشکێش دکەین ل دەڤەرا چیایێ شاریا.</p>
+            </div>
+            
+            <div class="footer-col links">
+                <h3>لینکێن گرنگ</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> سەرەکی (Home)</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> هەمی مولک</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> دەربارەی مە</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i> پەیوەندی</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact">
+                <h3>پەیوەندی</h3>
+                <div><i class="fas fa-map-marker-alt"></i> چیایێ شاریا، ل ناڤا بازاری</div>
+                <div><i class="fas fa-phone"></i> 07504457536</div>
+                <div><i class="fas fa-envelope"></i> info@sharyaestate.com</div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 نڤیسینگەها چیایێ شاریا. هەمی ماف پاراستینە.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- SECURITY CONFIGURATION ---
+        // SHA-256 hash of "khalatrashid90"
+        const ADMIN_PASSWORD_HASH = "92e3a335a73f1b27e564be0d14eaf2ec8f97d93c360531f0505d7d52201af5f4";
+
+        // SHA-256 implementation
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Load Data from LocalStorage
+        let properties = JSON.parse(localStorage.getItem('sharyaDB')) || [
+            {
+                id: 1, 
+                title: "خانیێ شاهانە", 
+                price: "$250,000", 
+                location: "شاریا، تاخێ گولان",
+                rooms: 5, 
+                area: 300, 
+                baths: 3, 
+                sold: false,
+                image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 2, 
+                title: "ئەردێ چاندنێ", 
+                price: "$45,000", 
+                location: "دەڤەرا چیایی",
+                rooms: 0, 
+                area: 5000, 
+                baths: 0, 
+                sold: true,
+                image: "https://images.unsplash.com/photo-1549417228-56d11e51b637?w=800&auto=format&fit=crop&q=80"
+            }
+        ];
+
+        let isAdmin = false;
+        let uploadedImageUrl = '';
+
+        // Toast Notification System
+        function showToast(message, type = "success") {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+
+        // Image Upload Handler
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Check if file is an image
+            if (!file.type.match('image.*')) {
+                showToast("⚠️ تکایە تەنها وێنە هەلبژێرە!", "error");
+                return;
+            }
+            
+            // Check file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showToast("⚠️ قەبارەی وێنە زۆر گەورەە! (کەمتر لە 5MB)", "error");
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // For demo purposes, we'll use the data URL directly
+                // In a real application, you would upload to a server
+                uploadedImageUrl = e.target.result;
+                
+                // Show preview
+                const preview = document.getElementById('imagePreview');
+                const previewImg = document.getElementById('previewImg');
+                
+                previewImg.src = uploadedImageUrl;
+                preview.style.display = 'block';
+                
+                // Clear URL input
+                document.getElementById('imgUrl').value = '';
+                
+                showToast("✅ وێنە ب سەرکەفتی هاتە هەلگرتن!", "success");
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // --- LOGIN SYSTEM ---
+        function openModal() { 
+            document.getElementById('loginModal').style.display = 'flex'; 
+            document.getElementById('passwordInput').focus();
+        }
+        
+        function closeModal() { 
+            document.getElementById('loginModal').style.display = 'none'; 
+            document.getElementById('passwordInput').value = ''; 
+        }
+        
+        async function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const hashedInput = await sha256(input);
+            
+            if(hashedInput === ADMIN_PASSWORD_HASH) {
+                isAdmin = true;
+                closeModal();
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'block';
+                render();
+                showToast("ب سەرکەفتیەوە چوویە ناو سیستەمێ ئەدمینی!", "success");
+            } else {
+                showToast("🚫 پاسوۆرد خەلەتە! هیڤیە دوبارە بنڤیسە.", "error");
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        function logout() {
+            if(confirm("دێ دەرکەڤی ژ ئەدمینی؟")) {
+                isAdmin = false;
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'none';
+                render();
+                showToast("ب سەرکەفتیەوە دەرکەڤت ژ سیستەمێ ئەدمینی.", "success");
+            }
+        }
+
+        // --- ADD PROPERTY ---
+        function addProperty() {
+            const title = document.getElementById('title').value.trim();
+            const price = document.getElementById('price').value.trim();
+            const loc = document.getElementById('loc').value.trim();
+            const rooms = document.getElementById('rooms').value || 0;
+            const area = document.getElementById('area').value || 0;
+            const baths = document.getElementById('baths').value || 0;
+            const imgUrl = document.getElementById('imgUrl').value.trim();
+
+            // Use uploaded image if available, otherwise use URL
+            const finalImageUrl = uploadedImageUrl || imgUrl;
+
+            if(!title || !price || !finalImageUrl) {
+                showToast("⚠️ هیڤیە ناڤ، بها، و وێنەی دابنێ!", "warning");
+                return;
+            }
+            
+            if(!uploadedImageUrl && !imgUrl.startsWith('http')) {
+                showToast("⚠️ لینکێ وێنەی (URL) گەلەکێ خەلەتە!", "error");
+                return;
+            }
+
+            const newProp = {
+                id: Date.now(),
+                title, 
+                price, 
+                location: loc, 
+                rooms: parseInt(rooms), 
+                area: parseInt(area), 
+                baths: parseInt(baths) || 0,
+                sold: false,
+                image: finalImageUrl
+            };
+
+            properties.unshift(newProp);
+            localStorage.setItem('sharyaDB', JSON.stringify(properties));
+            
+            // Reset Form
+            document.getElementById('title').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('loc').value = 'چیایێ شاریا';
+            document.getElementById('rooms').value = '';
+            document.getElementById('area').value = '';
+            document.getElementById('baths').value = '';
+            document.getElementById('imgUrl').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('fileInput').value = '';
+            uploadedImageUrl = '';
+            
+            showToast("✅ مولک ب سەرکەفتیانە هاتە زێدەکرن!", "success");
+            render();
+        }
+
+        // --- RENDER PROPERTIES ---
+        function render() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+
+            if (properties.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--gray-medium);">
+                        <i class="fas fa-home" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">هیش مولکێ تەدا نیە</h3>
+                        <p>مولکێن نوو دێنە زێدەکرن. هیڤیە چاڤدێری بکە!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            properties.forEach((item, index) => {
+                const soldHTML = item.sold ? '<div class="sold-ribbon">هاتە فرۆتن</div>' : '';
+                const filterStyle = item.sold ? 'filter: grayscale(80%);' : '';
+                const roomsDisplay = item.rooms > 0 ? `<span><i class="fas fa-bed"></i> ${item.rooms} ژوور</span>` : '';
+                const areaDisplay = item.area > 0 ? `<span><i class="fas fa-vector-square"></i> ${item.area} m²</span>` : '';
+                const bathsDisplay = item.baths > 0 ? `<span><i class="fas fa-bath"></i> ${item.baths} حەمام</span>` : '';
+                
+                let adminBtns = '';
+                if(isAdmin) {
+                    const soldBtnText = item.sold ? "بکە بەردەست" : "بکە فرۆتی";
+                    const soldBtnClass = item.sold ? "available" : "sold";
+                    
+                    adminBtns = `
+                        <div class="admin-actions">
+                            <button class="btn-action ${soldBtnClass}" onclick="toggleSold(${index})">
+                                <i class="fas fa-tag"></i> ${soldBtnText}
+                            </button>
+                            <button class="btn-action delete" onclick="delProp(${index})">
+                                <i class="fas fa-trash-alt"></i> ژێ ببە
+                            </button>
+                        </div>
+                    `;
+                }
+
+                const card = `
+                    <div class="card" style="${item.sold ? 'opacity: 0.8' : ''}">
+                        ${soldHTML}
+                        <img src="${item.image}" alt="${item.title}" style="${filterStyle}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=80'">
+                        <div class="card-details">
+                            <span class="price">${item.price}</span>
+                            <div class="card-title">${item.title}</div>
+                            <div class="location"><i class="fas fa-map-marker-alt"></i> ${item.location}</div>
+                            <div class="features">
+                                ${roomsDisplay}
+                                ${bathsDisplay}
+                                ${areaDisplay}
+                            </div>
+                        </div>
+                        ${adminBtns}
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // --- ACTIONS ---
+        function toggleSold(index) {
+            properties[index].sold = !properties[index].sold;
+            localStorage.setItem('sharyaDB', JSON.stringify(properties));
+            render();
+            showToast(
+                properties[index].sold 
+                    ? `مولک "${properties[index].title}" ب سەرکەفتیەوە نیشاندرا وەک فرۆشتی.` 
+                    : `مولک "${properties[index].title}" ب سەرکەفتیەوە نیشاندرا وەک بەردەست.`, 
+                "success"
+            );
+        }
+
+        function delProp(index) {
+            if(confirm(`❓ تۆ پشتراستی دڤێت مولکێ "${properties[index].title}" ژێ ببەی؟`)) {
+                const deletedTitle = properties[index].title;
+                properties.splice(index, 1);
+                localStorage.setItem('sharyaDB', JSON.stringify(properties));
+                render();
+                showToast(`مولک "${deletedTitle}" ب سەرکەفتیەوە ژێ بریا.`, "success");
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Initial Load
+        render();
+
+    </script>
+</body>
+</html>
