@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WomenShoes - پێلاڤ و چەنتە</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'vager';
+            src: url('rabar.woff');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'vager', sans-serif;
+        }
+        
+        :root {
+            --primary: #FF6B8B;
+            --primary-dark: #E05575;
+            --secondary: #6C63FF;
+            --secondary-dark: #554FD8;
+            --men-color: #4A90E2;
+            --men-dark: #2C6FB7;
+            --women-color: #FF6B8B;
+            --women-dark: #E05575;
+            --dark: #2D2D3A;
+            --light: #F8F9FF;
+            --gray: #E2E5F1;
+            --text: #4A4A68;
+            --success: #00C9A7;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --radius: 16px;
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-left: 10px;
+            font-size: 32px;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            background-color: transparent;
+            border: 2px solid var(--gray);
+            color: var(--text);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn i {
+            font-size: 18px;
+        }
+        
+        .nav-btn.active, .nav-btn:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.3);
+        }
+        
+        .return-btn {
+            background-color: var(--gray);
+            color: var(--text);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 15px;
+        }
+        
+        .return-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .gender-selection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 3000;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .gender-content {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            width: 90%;
+        }
+        
+        .gender-title {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .gender-subtitle {
+            font-size: 18px;
+            color: var(--text);
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+        
+        .gender-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .gender-btn {
+            background-color: white;
+            border: none;
+            padding: 35px 50px;
+            border-radius: var(--radius);
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 240px;
+            box-shadow: var(--shadow);
+        }
+        
+        .gender-btn.male {
+            border: 4px solid var(--men-color);
+        }
+        
+        .gender-btn.female {
+            border: 4px solid var(--women-color);
+        }
+        
+        .gender-btn i {
+            font-size: 60px;
+        }
+        
+        .gender-btn.male i {
+            color: var(--men-color);
+        }
+        
+        .gender-btn.female i {
+            color: var(--women-color);
+        }
+        
+        .gender-btn:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gender-btn.male:hover {
+            background-color: var(--men-color);
+            color: white;
+        }
+        
+        .gender-btn.male:hover i {
+            color: white;
+        }
+        
+        .gender-btn.female:hover {
+            background-color: var(--women-color);
+            color: white;
+        }
+        
+        .gender-btn.female:hover i {
+            color: white;
+        }
+        
+        .products-section {
+            padding: 60px 0;
+            display: none;
+        }
+        
+        .products-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .section-title i {
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        .section-switcher {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .switch-btn {
+            background-color: var(--gray);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .switch-btn.active, .switch-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .zoom-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 18px;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 2;
+        }
+        
+        .product-card:hover .zoom-icon {
+            opacity: 1;
+        }
+        
+        .product-info {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: var(--border);
+            position: relative;
+        }
+        
+        .product-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            text-align: center;
+        }
+        
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .whatsapp-btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
+        }
+        
+        .whatsapp-btn i {
+            font-size: 20px;
+        }
+        
+        .image-zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .zoom-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+        }
+        
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .zoom-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .close-zoom {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-zoom:hover {
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 70px 0 30px;
+            margin-top: 80px;
+            display: none;
+        }
+        
+        footer.active {
+            display: block;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #B0B0C3;
+            margin-bottom: 15px;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+            padding-right: 5px;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info i {
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #8888A3;
+            font-size: 14px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .product-card {
+                height: 480px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .gender-btn {
+                width: 220px;
+                padding: 30px 40px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            
+            .product-card {
+                height: 460px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gender-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .gender-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .gender-title {
+                font-size: 28px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .section-switcher {
+                align-self: flex-start;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .main-nav {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .return-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+            
+            .product-card {
+                height: 440px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .gender-content {
+                padding: 30px 20px;
+            }
+            
+            .section-switcher {
+                flex-wrap: wrap;
+            }
+            
+            .product-card {
+                height: 420px;
+            }
+            
+            .zoom-modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gender-selection" id="genderSelection">
+        <div class="container">
+            <div class="gender-content">
+                <h1 class="gender-title">بخيێر بهێن بۆ WomenShoes</h1>
+                <p class="gender-subtitle">رەگەزێ خۆ دەست نیشان بکە بۆ دیتنا بەرهەمێن مە</p>
+                <div class="gender-buttons">
+                    <button class="gender-btn male" id="maleBtn">
+                        <i class="fas fa-male"></i>
+                        زەلام ( کور )
+                    </button>
+                    <button class="gender-btn female" id="femaleBtn">
+                        <i class="fas fa-female"></i>
+                        کچ ( ژن )
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header id="mainHeader">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="logo.png"  width="65">
+                WomenShoes
+            </div>
+            
+            <div class="main-nav">
+                <button class="nav-btn active" id="shoesBtn">
+                    <i class="fas fa-shoe-prints"></i>
+                    پێلاڤ
+                </button>
+                <button class="nav-btn" id="bagsBtn">
+                    <i class="fas fa-shopping-bag"></i>
+                    چەنتە
+                </button>
+                <button class="return-btn" id="returnToGender">
+                    <i class="fas fa-undo"></i>
+                    زڤرین
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="image-zoom-modal" id="imageZoomModal">
+        <div class="zoom-modal-content">
+            <span class="close-zoom" id="closeZoom">&times;</span>
+            <img class="zoom-image" id="zoomedImage" src="" alt="Zoomed Product Image">
+        </div>
+    </div>
+
+    <section class="products-section" id="menShoesSection">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-shoe-prints"></i>
+                        پێلاڤێن کوران
+                    </h2>
+                    <div class="section-switcher">
+                        <button class="switch-btn" id="menReturnBtn">
+                            <i class="fas fa-undo"></i>
+                            زڤرین بۆ دەستپێکێ
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="products-grid" id="menShoesContainer">
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section" id="womenShoesSection">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-shoe-prints"></i>
+                         پێلاڤێن کچان
+                    </h2>
+                    <div class="section-switcher">
+                        <button class="switch-btn" id="womenToBags">
+                            <i class="fas fa-shopping-bag"></i>
+                            کلیک بۆ دیتنا چەنتان
+                        </button>
+                        <button class="switch-btn" id="womenReturnBtn">
+                            <i class="fas fa-undo"></i>
+                            زڤرین بۆ دەستپێکێ
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="products-grid" id="womenShoesContainer">
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section" id="bagsSection">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        چەنتێن کچان 
+                    </h2>
+                    <div class="section-switcher">
+                        <button class="switch-btn active" id="bagsToShoes">
+                            <i class="fas fa-shoe-prints"></i>
+                            کلیک بۆ دیتنا پێلاڤان
+                        </button>
+                        <button class="switch-btn" id="bagsReturnBtn">
+                            <i class="fas fa-undo"></i>
+                            زڤرین بۆ دەستپێکێ
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="products-grid" id="bagsContainer">
+            </div>
+        </div>
+    </section>
+
+    <footer id="mainFooter">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>هەژمارێن مە ل تۆرێن جڤاکی</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3> پێزانین و پەیوەندی</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>دهۆک - شاریا - جادا زێرنگران</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>009647503323735</span>
+                    </div>
+                     <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>009647508813095</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 WomenShoes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = {
+            womenShoes: [
+                {
+                    id: 1,
+                    name: "نعال",
+                    image: "wena/na3al.png"
+                },
+      
+            ],
+            menShoes: [
+                {
+                    id: 5,
+                    name: "سكێچەر",
+                    image: "wena/skechar.jpg"
+                },
+            
+            ],
+            bags: [
+                {
+                    id: 9,
+                    name: " چەنتەیێن کچان ",
+                    image: "wena/g1.jpg"
+                },
+               
+            ]
+        };
+
+        const genderSelection = document.getElementById('genderSelection');
+        const mainHeader = document.getElementById('mainHeader');
+        const mainFooter = document.getElementById('mainFooter');
+        const maleBtn = document.getElementById('maleBtn');
+        const femaleBtn = document.getElementById('femaleBtn');
+        const returnToGender = document.getElementById('returnToGender');
+        
+        const menShoesSection = document.getElementById('menShoesSection');
+        const womenShoesSection = document.getElementById('womenShoesSection');
+        const bagsSection = document.getElementById('bagsSection');
+        
+        const shoesBtn = document.getElementById('shoesBtn');
+        const bagsBtn = document.getElementById('bagsBtn');
+        
+        const menReturnBtn = document.getElementById('menReturnBtn');
+        const womenReturnBtn = document.getElementById('womenReturnBtn');
+        const bagsReturnBtn = document.getElementById('bagsReturnBtn');
+        const womenToBags = document.getElementById('womenToBags');
+        const bagsToShoes = document.getElementById('bagsToShoes');
+
+        const imageZoomModal = document.getElementById('imageZoomModal');
+        const zoomedImage = document.getElementById('zoomedImage');
+        const closeZoom = document.getElementById('closeZoom');
+
+        maleBtn.addEventListener('click', () => {
+            selectGender('male');
+        });
+
+        femaleBtn.addEventListener('click', () => {
+            selectGender('female');
+        });
+
+        returnToGender.addEventListener('click', returnToGenderSelection);
+
+        menReturnBtn.addEventListener('click', returnToGenderSelection);
+        womenReturnBtn.addEventListener('click', returnToGenderSelection);
+        bagsReturnBtn.addEventListener('click', returnToGenderSelection);
+
+        womenToBags.addEventListener('click', () => {
+            hideAllSections();
+            bagsSection.classList.add('active');
+            setActiveNavButton(bagsBtn);
+        });
+
+        bagsToShoes.addEventListener('click', () => {
+            hideAllSections();
+            womenShoesSection.classList.add('active');
+            setActiveNavButton(shoesBtn);
+        });
+
+        closeZoom.addEventListener('click', () => {
+            imageZoomModal.style.display = 'none';
+        });
+
+        imageZoomModal.addEventListener('click', (e) => {
+            if (e.target === imageZoomModal) {
+                imageZoomModal.style.display = 'none';
+            }
+        });
+
+        function returnToGenderSelection() {
+            hideAllSections();
+            mainHeader.style.display = 'none';
+            mainFooter.classList.remove('active');
+            genderSelection.style.display = 'flex';
+            shoesBtn.style.display = 'flex';
+            bagsBtn.style.display = 'flex';
+            shoesBtn.style.width = 'auto';
+        }
+
+        function selectGender(gender) {
+            genderSelection.style.display = 'none';
+            mainHeader.style.display = 'block';
+            mainFooter.classList.add('active');
+            hideAllSections();
+            
+            if (gender === 'male') {
+                menShoesSection.classList.add('active');
+                updateNavForMale();
+            } else {
+                womenShoesSection.classList.add('active');
+                updateNavForFemale();
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        function updateNavForMale() {
+            bagsBtn.style.display = 'none';
+            shoesBtn.style.width = '100%';
+            setActiveNavButton(shoesBtn);
+        }
+
+        function updateNavForFemale() {
+            bagsBtn.style.display = 'flex';
+            shoesBtn.style.width = 'auto';
+            setActiveNavButton(shoesBtn);
+        }
+
+        function setActiveNavButton(activeBtn) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            activeBtn.classList.add('active');
+        }
+
+        shoesBtn.addEventListener('click', () => {
+            if (!womenShoesSection.classList.contains('active')) {
+                hideAllSections();
+                womenShoesSection.classList.add('active');
+                setActiveNavButton(shoesBtn);
+            }
+        });
+
+        bagsBtn.addEventListener('click', () => {
+            if (!bagsSection.classList.contains('active')) {
+                hideAllSections();
+                bagsSection.classList.add('active');
+                setActiveNavButton(bagsBtn);
+            }
+        });
+
+        function hideAllSections() {
+            menShoesSection.classList.remove('active');
+            womenShoesSection.classList.remove('active');
+            bagsSection.classList.remove('active');
+        }
+
+        function generateProductCard(product, containerId) {
+            const container = document.getElementById(containerId);
+            
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.dataset.id = product.id;
+            
+            productCard.innerHTML = `
+                <div class="product-image-container">
+                    <div class="zoom-icon">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    
+                    <div class="product-actions">
+                        <button class="whatsapp-btn request-btn" data-id="${product.id}">
+                            <i class="fab fa-whatsapp"></i> داخازبکە ب رێکا واتس ئاپی
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(productCard);
+            
+            const productImage = productCard.querySelector('.product-image');
+            const zoomIcon = productCard.querySelector('.zoom-icon');
+            
+            function openImageZoom() {
+                zoomedImage.src = product.image;
+                zoomedImage.alt = product.name;
+                imageZoomModal.style.display = 'flex';
+            }
+            
+            productImage.addEventListener('click', openImageZoom);
+            zoomIcon.addEventListener('click', openImageZoom);
+            
+            const requestBtn = productCard.querySelector('.request-btn');
+            requestBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const phoneNumber = "009647503323735";
+                const whatsappUrl = `https://wa.me/${phoneNumber}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            products.womenShoes.forEach(product => {
+                generateProductCard(product, 'womenShoesContainer');
+            });
+            
+            products.menShoes.forEach(product => {
+                generateProductCard(product, 'menShoesContainer');
+            });
+            
+            products.bags.forEach(product => {
+                generateProductCard(product, 'bagsContainer');
+            });
+        });
+    </script>
+</body>
+</html>
